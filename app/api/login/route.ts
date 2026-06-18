@@ -2,8 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { getDb } from "@/lib/sqldb";
 import { loginSchema } from "@/lib/validation";
+import { autoriser } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
+
 
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
@@ -13,13 +15,20 @@ export async function POST(req: NextRequest) {
   }
   const { email, password } = parsed.data;
 
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "local";
+  if (!autoriser(`${ip}:${email}`)) {
+    return NextResponse.json(
+      { error: "Trop de tentatives, réessaie plus tard" },
+      { status: 429 }
+    );
+  }
+
   const db = getDb();
 
   const rows = db("SELECT * FROM users WHERE email = ?", [email]) as Array<{
     id: number; email: string; password: string; role: string;
   }>;
   const user = rows[0];
-
 
   const motDePasseOk = user ? await bcrypt.compare(password, user.password) : false;
   if (!user || !motDePasseOk) {
@@ -31,6 +40,7 @@ export async function POST(req: NextRequest) {
     user: { id: user.id, email: user.email, role: user.role },
   });
 
+
   res.cookies.set("mininotes_session", String(user.id), {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -38,5 +48,4 @@ export async function POST(req: NextRequest) {
     path: "/",
   });
   return res;
-
 }
