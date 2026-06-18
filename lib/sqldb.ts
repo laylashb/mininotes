@@ -20,11 +20,9 @@ export function getDb() {
     alasql("INSERT INTO notes VALUES (2,2,'Idee projet','une appli de notes privees')");
     alasql("INSERT INTO notes VALUES (3,3,'Codes admin','le code du coffre est 4271')");
 
-
     alasql("INSERT INTO comments VALUES (1,'Alice','Super appli !')");
 
     prete = true;
-  }
 
   return alasql;
 }

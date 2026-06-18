@@ -10,15 +10,17 @@ export default function CommentairesPage() {
     html: string;
   }>;
 
+
   return (
     <main style={{ padding: 24, fontFamily: "system-ui" }}>
       <h1>Commentaires</h1>
       {comments.map((c) => (
         <div key={c.id} style={{ marginBottom: 12 }}>
           <b>{c.author} :</b>{" "}
-          <span dangerouslySetInnerHTML={{ __html: c.html }} />
+          <span>{c.html}</span>
         </div>
       ))}
     </main>
   );
+
 }
