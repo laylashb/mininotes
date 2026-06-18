@@ -45,4 +45,4 @@ jobs:
 
 
       - name: Scanner
-        run: semgrep scan --config auto --error --exclude-rule generic.secrets.security.detected-bcrypt-hash.detected-bcrypt-hash
+        run: semgrep scan --config auto --config regles/sqli.yml --error --exclude-rule generic.secrets.security.detected-bcrypt-hash.detected-bcrypt-hash
