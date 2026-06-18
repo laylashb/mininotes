@@ -12,9 +12,9 @@ export function getDb() {
     alasql("DELETE FROM notes");
     alasql("DELETE FROM comments");
 
-    alasql("INSERT INTO users VALUES (1,'alice@mininotes.test','azerty123','user')");
-    alasql("INSERT INTO users VALUES (2,'bob@mininotes.test','motdepasse','user')");
-    alasql("INSERT INTO users VALUES (3,'admin@mininotes.test','admin','admin')");
+    alasql("INSERT INTO users VALUES (1,'alice@mininotes.test','$2b$10$P39xPjloIytX9WaelgmhcuQcWsbbRFd6uU6mbapu4wK77pPUUIKdW','user')");
+    alasql("INSERT INTO users VALUES (2,'bob@mininotes.test','$2b$10$uwxtHCuGmDWNdMYiSAQLMO8dje3oeOwjD5HEpq.JElTnpZxoDjAl.','user')");
+    alasql("INSERT INTO users VALUES (3,'admin@mininotes.test','$2b$10$6enKJZrq0A2nmkHzb63usubFU2F9PIFyGnCq6x/Yhg7AfkMIpAwMa','admin')");
 
     alasql("INSERT INTO notes VALUES (1,1,'Liste de courses','lait, pain, cafe')");
     alasql("INSERT INTO notes VALUES (2,2,'Idee projet','une appli de notes privees')");
