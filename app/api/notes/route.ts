@@ -11,7 +11,8 @@ export async function GET(req: NextRequest) {
   }
   const db = getDb();
 
-  const rows = db("SELECT * FROM notes WHERE userId = ?", [Number(sessionId)]);
+  const sql = `SELECT * FROM notes WHERE userId = ${sessionId}`;
+  const rows = db(sql);
   return NextResponse.json({ notes: rows });
 }
 
