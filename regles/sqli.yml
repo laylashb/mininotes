@@ -1,0 +1,9 @@
+rules:
+  - id: mininotes-sql-injection-template-string
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: "Injection SQL probable - une variable est interpolee dans une chaine SQL. Utilise une requete parametree."
+    metadata:
+      cwe: "CWE-89"
+      owasp: "A03:2021"
+    pattern-regex: '(?is)`[^`]*(select|insert|update|delete)[^`]*`'
