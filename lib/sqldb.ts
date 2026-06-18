@@ -23,6 +23,6 @@ export function getDb() {
     alasql("INSERT INTO comments VALUES (1,'Alice','Super appli !')");
 
     prete = true;
-
+  }
   return alasql;
 }
